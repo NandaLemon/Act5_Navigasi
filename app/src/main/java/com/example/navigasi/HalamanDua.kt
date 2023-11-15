@@ -17,6 +17,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.navigasi.data.OrderUIState
 import com.example.navigasi.ui.theme.komponen.FormatLabelHarga
 
@@ -34,6 +36,41 @@ fun HalamanDua(
         modifier = modifier,
         verticalArrangement = Arrangement.SpaceBetween
     ) {
+
+        Column(
+
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Text(
+                text = "Data Customer",
+                modifier = Modifier.padding(20.dp),
+                fontSize = 20.sp,
+                fontWeight = FontWeight.Bold
+            )
+            Row (modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.SpaceAround){
+                Text(stringResource(id = R.string.nama))
+                Text(orderUIState.nama)
+            }
+            Spacer(modifier = Modifier.padding(20.dp))
+            Row (modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.SpaceAround){
+                Text(stringResource(id = R.string.alamat))
+                Text(orderUIState.alamat)
+            }
+            Spacer(modifier = Modifier.padding(20.dp))
+            Row (modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.SpaceAround){
+                Text(stringResource(id = R.string.telepon))
+                Text(orderUIState.noTelp)
+            }
+
+            Text(
+                text = "Detail Item",
+                modifier = Modifier.padding(20.dp),
+                fontSize = 20.sp,
+                fontWeight = FontWeight.Bold
+            )
+
+        }
         Column(
             modifier = Modifier.padding(dimensionResource(R.dimen.padding_medium)),
             verticalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.padding_small))

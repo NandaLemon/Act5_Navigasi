@@ -28,6 +28,7 @@ import com.example.navigasi.data.SumberData.flavor
 
 enum class PengelolaHalaman {
     Home,
+    Data,
     Rasa,
     Summary
 }
@@ -52,6 +53,7 @@ fun EsTehhAppBar(
         }
     )
 }
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun EsTehhApp(
     viewModel: OrderViewModel = viewModel(),
@@ -72,16 +74,21 @@ fun EsTehhApp(
             composable(route = PengelolaHalaman.Home.name) {
                 HalamanHome(
                     onNextButtonClicked = {
-                        navController.navigate(PengelolaHalaman.Rasa.name)
+                        navController.navigate(PengelolaHalaman.Data.name)
                     })
+            }
+            composable(route = PengelolaHalaman.Data.name){
+                HalamanTambahan(onSubmitButtonClick = {viewModel.setContact(it)
+                navController.navigate(PengelolaHalaman.Rasa.name)})
             }
             composable(route = PengelolaHalaman.Rasa.name){
                 val context = LocalContext.current
-                HalamanSatu(flavor .map{id -> context.resources.getString(id)},
-                    {viewModel.setRasa(it)},
-                    {viewModel.setJumlah(it)},
-                    { navController.navigate(PengelolaHalaman.Summary.name)},
-                    { cancelOrderAndNavigateToHome(viewModel,navController)
+                HalamanSatu(
+                    pilihanRasa = flavor .map{id -> context.resources.getString(id)},
+                    onSelectionChanged = {viewModel.setRasa(it)},
+                    onConfirmButtonClicked = {viewModel.setJumlah(it)},
+                    onNextButtonClicked = { navController.navigate(PengelolaHalaman.Summary.name)},
+                    onCancelButtonClicked = { cancelOrderAndNavigateToHome(viewModel,navController)
                     }
                 )
             }
